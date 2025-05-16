@@ -75,12 +75,16 @@ export const updateSoftwares = async (req, res) => {
   
     if(results.affectedRows == 0){
       return res.status(404).json({
+        status: false,
         message: 'El ID no existe'
       })
+    }else{
+      return res.send({
+        status: true,
+        message: "Registrado actualizado",
+      })
     }
-  
-    //res.send("Actualizado correctamente")
-    res.sendStatus(202)
+
   }
   catch{
     console.error("No se puede concretar PUT")
@@ -97,11 +101,17 @@ export const deleteSoftwares = async (req, res) => {
     //No se pudo eliminar.................
     if (results.affectedRows == 0){
       return res.status(404).json({
-        message: 'EL ID ENVIADO NO EXISTE'
+        status: false,
+        message: 'EL ID enviado NO existe'
+      })
+    }else{ //res.send () ->> status 200 ok
+      return res.send({
+        status:true,
+        message: 'eliminado correctamente'
       })
     }
 
-    res.send({  message: 'Eliminado correctamente' })
+    
   }
   catch{
     console.error("No se puedo croncretar DELETE")
